@@ -1,0 +1,31 @@
+[gd_scene load_steps=9 format=3 uid="uid://gr1gr2vdgss7"]
+
+[ext_resource type="PackedScene" uid="uid://rodsaepm8r16" path="res://Level Generator/a_star_npc.tscn" id="1_cah22"]
+[ext_resource type="Script" path="res://game.gd" id="1_uf26j"]
+[ext_resource type="PackedScene" uid="uid://kp3bmtbymbbr" path="res://Level Generator/player.tscn" id="2_lqd50"]
+[ext_resource type="PackedScene" uid="uid://dgv5we86yncso" path="res://Level Generator/Cam.tscn" id="4_7x1vn"]
+[ext_resource type="PackedScene" uid="uid://ccaexdd2e73wa" path="res://Level Generator/Light.tscn" id="4_frm2h"]
+[ext_resource type="Script" path="res://spawner.gd" id="5_fi37m"]
+[ext_resource type="PackedScene" uid="uid://dembab0ydsqea" path="res://Level/GeneratedLevels/New Level1.tscn" id="6_rkg0b"]
+[ext_resource type="PackedScene" uid="uid://dvsgbl1ypltho" path="res://Level Generator/HUD.tscn" id="7_42gj5"]
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_uf26j")
+
+[node name="NPC A*" parent="." instance=ExtResource("1_cah22")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.7106, 2.01155, -7.06354)
+
+[node name="Player" parent="." instance=ExtResource("2_lqd50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.680593, 1.12384, -8.99669)
+
+[node name="DirectionalLight3D" parent="." instance=ExtResource("4_frm2h")]
+
+[node name="Camera3D" parent="." instance=ExtResource("4_7x1vn")]
+
+[node name="Spawner" type="Node3D" parent="."]
+script = ExtResource("5_fi37m")
+Enemy = ExtResource("1_cah22")
+
+[node name="NavigationRegion3D" parent="." instance=ExtResource("6_rkg0b")]
+
+[node name="HUD" parent="." instance=ExtResource("7_42gj5")]

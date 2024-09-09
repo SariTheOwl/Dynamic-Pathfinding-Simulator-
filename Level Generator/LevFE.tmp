@@ -1,0 +1,28 @@
+[gd_scene load_steps=11 format=3 uid="uid://cfm6e82xgdjj2"]
+
+[ext_resource type="Script" path="res://Level Generator/level_generator_grid.gd" id="1_2hbq6"]
+[ext_resource type="PackedScene" uid="uid://ck0wxxd7w3y66" path="res://Level Generator/ground.tscn" id="2_ohu5i"]
+[ext_resource type="PackedScene" uid="uid://ddu6pbdcbenul" path="res://Level Generator/obstacle.tscn" id="3_1d66e"]
+[ext_resource type="PackedScene" uid="uid://dvsgbl1ypltho" path="res://Level Generator/HUD.tscn" id="4_47qnl"]
+[ext_resource type="PackedScene" uid="uid://co8iufx6sum5w" path="res://ground_grid.tscn" id="4_vsmk3"]
+[ext_resource type="PackedScene" uid="uid://dgv5we86yncso" path="res://Level Generator/Cam.tscn" id="5_s0o3f"]
+[ext_resource type="PackedScene" uid="uid://ccaexdd2e73wa" path="res://Level Generator/Light.tscn" id="6_c45i2"]
+[ext_resource type="PackedScene" uid="uid://224gdlhxmjma" path="res://Level Generator/GenLevelButton.tscn" id="7_mfjaf"]
+[ext_resource type="PackedScene" uid="uid://rodsaepm8r16" path="res://Level Generator/a_star_npc.tscn" id="8_kkceg"]
+[ext_resource type="PackedScene" uid="uid://kp3bmtbymbbr" path="res://Level Generator/player.tscn" id="9_4wca3"]
+
+[node name="LevelGenerator" type="Node3D"]
+script = ExtResource("1_2hbq6")
+GroundScene = ExtResource("2_ohu5i")
+ObstacleScene = ExtResource("3_1d66e")
+GroundSceneGrid = ExtResource("4_vsmk3")
+Hud = ExtResource("4_47qnl")
+Camera = ExtResource("5_s0o3f")
+Light = ExtResource("6_c45i2")
+GenLevelButton = ExtResource("7_mfjaf")
+AStarNpc = ExtResource("8_kkceg")
+Goal = ExtResource("9_4wca3")
+map_width = 10
+map_depth = 10
+level_name = "New Level2"
+rng_seed = 252

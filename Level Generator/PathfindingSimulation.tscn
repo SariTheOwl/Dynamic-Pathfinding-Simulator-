@@ -1,0 +1,1697 @@
+[gd_scene load_steps=14 format=3 uid="uid://cvjy5fhjr4wta"]
+
+[ext_resource type="PackedScene" uid="uid://cfm6e82xgdjj2" path="res://Level Generator/LevelGeneratorKruskal.tscn" id="1_cmxkp"]
+[ext_resource type="PackedScene" uid="uid://bc0gu4xh2mwwv" path="res://Level Generator/d_star_lite_npc.tscn" id="2_1jq0h"]
+[ext_resource type="PackedScene" uid="uid://crk8bkqw6plux" path="res://Level Generator/lpa_star_npc.tscn" id="3_mxbu3"]
+[ext_resource type="Script" path="res://Level Generator/NavigationMap.gd" id="4_kwhxu"]
+[ext_resource type="Material" uid="uid://cjcwtioigcwra" path="res://Level Generator/ground.tres" id="5_nbwcw"]
+[ext_resource type="Script" path="res://Level Generator/ground.gd" id="6_orfl8"]
+[ext_resource type="Script" path="res://Level Generator/obstacle.gd" id="6_pt2i2"]
+[ext_resource type="PackedScene" uid="uid://ddu6pbdcbenul" path="res://Level Generator/obstacle.tscn" id="7_7noj2"]
+[ext_resource type="Script" path="res://PathfindingManager.gd" id="9_74yu0"]
+[ext_resource type="Script" path="res://Cam.gd" id="10_5sgxr"]
+[ext_resource type="PackedScene" uid="uid://224gdlhxmjma" path="res://Level Generator/GenLevelButton.tscn" id="11_rkb3c"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_05stu"]
+border_size = 0.5
+filter_ledge_spans = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klb7w"]
+albedo_color = Color(0.425684, 0.173402, 0.138823, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="LevelGenerator" parent="." instance=ExtResource("1_cmxkp")]
+DStarLiteNpc = ExtResource("2_1jq0h")
+LPAStarNpc = ExtResource("3_mxbu3")
+map_width = 20
+map_depth = 20
+rng_seed = 762
+
+[node name="NavigationRegion3D" parent="LevelGenerator" index="0"]
+navigation_mesh = SubResource("NavigationMesh_05stu")
+script = ExtResource("4_kwhxu")
+obstacle_map = [[true, true, true, true, true, true, false, true, false, false, false, true, true, true, true, true, true, true, true, true], [false, true, true, false, false, true, false, false, false, true, false, true, false, false, false, false, false, false, false, true], [false, true, true, true, false, false, false, true, true, true, true, true, true, true, false, true, true, true, true, true], [false, true, true, true, true, true, false, true, true, true, true, true, true, true, false, false, false, true, true, true], [false, false, false, false, false, true, false, true, true, true, true, false, false, false, false, true, false, false, false, true], [true, false, true, true, false, false, false, true, false, false, true, false, true, false, true, true, true, true, true, true], [true, false, true, true, true, true, false, true, true, false, true, true, true, false, false, false, false, false, false, true], [true, false, false, true, true, true, false, false, true, false, true, true, true, false, true, true, true, false, true, true], [true, true, false, true, true, true, true, false, false, false, false, false, false, false, true, false, false, false, false, false], [true, false, false, true, true, true, true, false, true, true, false, true, true, true, false, false, true, true, true, false], [false, false, true, true, true, true, true, false, true, true, false, true, true, true, true, true, true, true, true, false], [false, true, true, false, false, false, true, false, false, false, true, true, true, true, true, true, false, false, false, false], [false, false, false, false, true, true, true, false, true, true, true, true, false, false, true, true, true, false, true, true], [true, true, false, false, true, true, true, false, true, true, true, false, false, true, true, true, true, false, true, true], [true, true, false, true, true, true, true, false, false, true, true, false, true, true, true, false, true, true, true, true], [false, false, false, true, true, true, true, true, false, false, true, false, false, false, true, false, true, true, true, true], [true, false, true, true, false, false, true, true, true, false, false, false, true, false, false, false, true, false, false, false], [true, false, false, true, false, true, true, false, true, true, true, false, true, false, true, false, false, false, true, false], [true, true, false, false, false, true, true, false, true, true, true, false, true, false, false, true, false, true, false, false], [true, false, false, true, true, true, false, false, false, false, false, false, true, true, true, true, true, true, true, true]]
+map_width = 20
+map_depth = 20
+
+[node name="ground" parent="LevelGenerator/NavigationRegion3D" index="0" groups=["pathable"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+use_collision = true
+size = Vector3(40, 1, 40)
+material = ExtResource("5_nbwcw")
+script = ExtResource("6_orfl8")
+ObstacleScene = ExtResource("7_7noj2")
+
+[node name="CSGBox3D3" parent="LevelGenerator/NavigationRegion3D" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19083" parent="LevelGenerator/NavigationRegion3D" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19084" parent="LevelGenerator/NavigationRegion3D" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19085" parent="LevelGenerator/NavigationRegion3D" index="4"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19086" parent="LevelGenerator/NavigationRegion3D" index="5"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19087" parent="LevelGenerator/NavigationRegion3D" index="6"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19088" parent="LevelGenerator/NavigationRegion3D" index="7"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19089" parent="LevelGenerator/NavigationRegion3D" index="8"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19090" parent="LevelGenerator/NavigationRegion3D" index="9"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19091" parent="LevelGenerator/NavigationRegion3D" index="10"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19092" parent="LevelGenerator/NavigationRegion3D" index="11"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19093" parent="LevelGenerator/NavigationRegion3D" index="12"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19094" parent="LevelGenerator/NavigationRegion3D" index="13"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19095" parent="LevelGenerator/NavigationRegion3D" index="14"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19096" parent="LevelGenerator/NavigationRegion3D" index="15"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19097" parent="LevelGenerator/NavigationRegion3D" index="16"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19098" parent="LevelGenerator/NavigationRegion3D" index="17"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19099" parent="LevelGenerator/NavigationRegion3D" index="18"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19100" parent="LevelGenerator/NavigationRegion3D" index="19"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19101" parent="LevelGenerator/NavigationRegion3D" index="20"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19102" parent="LevelGenerator/NavigationRegion3D" index="21"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19103" parent="LevelGenerator/NavigationRegion3D" index="22"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19104" parent="LevelGenerator/NavigationRegion3D" index="23"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19105" parent="LevelGenerator/NavigationRegion3D" index="24"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19106" parent="LevelGenerator/NavigationRegion3D" index="25"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19107" parent="LevelGenerator/NavigationRegion3D" index="26"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19108" parent="LevelGenerator/NavigationRegion3D" index="27"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19109" parent="LevelGenerator/NavigationRegion3D" index="28"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19110" parent="LevelGenerator/NavigationRegion3D" index="29"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19111" parent="LevelGenerator/NavigationRegion3D" index="30"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19112" parent="LevelGenerator/NavigationRegion3D" index="31"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19113" parent="LevelGenerator/NavigationRegion3D" index="32"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19114" parent="LevelGenerator/NavigationRegion3D" index="33"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19115" parent="LevelGenerator/NavigationRegion3D" index="34"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19116" parent="LevelGenerator/NavigationRegion3D" index="35"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19117" parent="LevelGenerator/NavigationRegion3D" index="36"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19118" parent="LevelGenerator/NavigationRegion3D" index="37"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19119" parent="LevelGenerator/NavigationRegion3D" index="38"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19120" parent="LevelGenerator/NavigationRegion3D" index="39"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19121" parent="LevelGenerator/NavigationRegion3D" index="40"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19122" parent="LevelGenerator/NavigationRegion3D" index="41"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19123" parent="LevelGenerator/NavigationRegion3D" index="42"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19124" parent="LevelGenerator/NavigationRegion3D" index="43"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19125" parent="LevelGenerator/NavigationRegion3D" index="44"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19126" parent="LevelGenerator/NavigationRegion3D" index="45"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19127" parent="LevelGenerator/NavigationRegion3D" index="46"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19128" parent="LevelGenerator/NavigationRegion3D" index="47"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19129" parent="LevelGenerator/NavigationRegion3D" index="48"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19130" parent="LevelGenerator/NavigationRegion3D" index="49"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19131" parent="LevelGenerator/NavigationRegion3D" index="50"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19132" parent="LevelGenerator/NavigationRegion3D" index="51"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19133" parent="LevelGenerator/NavigationRegion3D" index="52"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19134" parent="LevelGenerator/NavigationRegion3D" index="53"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19135" parent="LevelGenerator/NavigationRegion3D" index="54"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19136" parent="LevelGenerator/NavigationRegion3D" index="55"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19137" parent="LevelGenerator/NavigationRegion3D" index="56"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19138" parent="LevelGenerator/NavigationRegion3D" index="57"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19139" parent="LevelGenerator/NavigationRegion3D" index="58"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19140" parent="LevelGenerator/NavigationRegion3D" index="59"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19141" parent="LevelGenerator/NavigationRegion3D" index="60"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19142" parent="LevelGenerator/NavigationRegion3D" index="61"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19143" parent="LevelGenerator/NavigationRegion3D" index="62"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19144" parent="LevelGenerator/NavigationRegion3D" index="63"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19145" parent="LevelGenerator/NavigationRegion3D" index="64"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19146" parent="LevelGenerator/NavigationRegion3D" index="65"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19147" parent="LevelGenerator/NavigationRegion3D" index="66"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19148" parent="LevelGenerator/NavigationRegion3D" index="67"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19149" parent="LevelGenerator/NavigationRegion3D" index="68"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19150" parent="LevelGenerator/NavigationRegion3D" index="69"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19151" parent="LevelGenerator/NavigationRegion3D" index="70"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19152" parent="LevelGenerator/NavigationRegion3D" index="71"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19153" parent="LevelGenerator/NavigationRegion3D" index="72"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19154" parent="LevelGenerator/NavigationRegion3D" index="73"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19155" parent="LevelGenerator/NavigationRegion3D" index="74"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19156" parent="LevelGenerator/NavigationRegion3D" index="75"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19157" parent="LevelGenerator/NavigationRegion3D" index="76"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19158" parent="LevelGenerator/NavigationRegion3D" index="77"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19159" parent="LevelGenerator/NavigationRegion3D" index="78"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19160" parent="LevelGenerator/NavigationRegion3D" index="79"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19161" parent="LevelGenerator/NavigationRegion3D" index="80"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19162" parent="LevelGenerator/NavigationRegion3D" index="81"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19163" parent="LevelGenerator/NavigationRegion3D" index="82"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19164" parent="LevelGenerator/NavigationRegion3D" index="83"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19165" parent="LevelGenerator/NavigationRegion3D" index="84"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19166" parent="LevelGenerator/NavigationRegion3D" index="85"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19167" parent="LevelGenerator/NavigationRegion3D" index="86"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19168" parent="LevelGenerator/NavigationRegion3D" index="87"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19169" parent="LevelGenerator/NavigationRegion3D" index="88"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19170" parent="LevelGenerator/NavigationRegion3D" index="89"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19171" parent="LevelGenerator/NavigationRegion3D" index="90"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19172" parent="LevelGenerator/NavigationRegion3D" index="91"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19173" parent="LevelGenerator/NavigationRegion3D" index="92"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19174" parent="LevelGenerator/NavigationRegion3D" index="93"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19175" parent="LevelGenerator/NavigationRegion3D" index="94"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19176" parent="LevelGenerator/NavigationRegion3D" index="95"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19177" parent="LevelGenerator/NavigationRegion3D" index="96"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19178" parent="LevelGenerator/NavigationRegion3D" index="97"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19179" parent="LevelGenerator/NavigationRegion3D" index="98"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19180" parent="LevelGenerator/NavigationRegion3D" index="99"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19181" parent="LevelGenerator/NavigationRegion3D" index="100"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19182" parent="LevelGenerator/NavigationRegion3D" index="101"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19183" parent="LevelGenerator/NavigationRegion3D" index="102"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19184" parent="LevelGenerator/NavigationRegion3D" index="103"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19185" parent="LevelGenerator/NavigationRegion3D" index="104"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19186" parent="LevelGenerator/NavigationRegion3D" index="105"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19187" parent="LevelGenerator/NavigationRegion3D" index="106"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19188" parent="LevelGenerator/NavigationRegion3D" index="107"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19189" parent="LevelGenerator/NavigationRegion3D" index="108"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19190" parent="LevelGenerator/NavigationRegion3D" index="109"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19191" parent="LevelGenerator/NavigationRegion3D" index="110"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19192" parent="LevelGenerator/NavigationRegion3D" index="111"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19193" parent="LevelGenerator/NavigationRegion3D" index="112"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19194" parent="LevelGenerator/NavigationRegion3D" index="113"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19195" parent="LevelGenerator/NavigationRegion3D" index="114"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19196" parent="LevelGenerator/NavigationRegion3D" index="115"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19197" parent="LevelGenerator/NavigationRegion3D" index="116"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19198" parent="LevelGenerator/NavigationRegion3D" index="117"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19199" parent="LevelGenerator/NavigationRegion3D" index="118"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19200" parent="LevelGenerator/NavigationRegion3D" index="119"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19201" parent="LevelGenerator/NavigationRegion3D" index="120"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19202" parent="LevelGenerator/NavigationRegion3D" index="121"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19203" parent="LevelGenerator/NavigationRegion3D" index="122"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19204" parent="LevelGenerator/NavigationRegion3D" index="123"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19205" parent="LevelGenerator/NavigationRegion3D" index="124"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19206" parent="LevelGenerator/NavigationRegion3D" index="125"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19207" parent="LevelGenerator/NavigationRegion3D" index="126"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19208" parent="LevelGenerator/NavigationRegion3D" index="127"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19209" parent="LevelGenerator/NavigationRegion3D" index="128"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19210" parent="LevelGenerator/NavigationRegion3D" index="129"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19211" parent="LevelGenerator/NavigationRegion3D" index="130"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19212" parent="LevelGenerator/NavigationRegion3D" index="131"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19213" parent="LevelGenerator/NavigationRegion3D" index="132"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19214" parent="LevelGenerator/NavigationRegion3D" index="133"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19215" parent="LevelGenerator/NavigationRegion3D" index="134"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19216" parent="LevelGenerator/NavigationRegion3D" index="135"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19217" parent="LevelGenerator/NavigationRegion3D" index="136"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19218" parent="LevelGenerator/NavigationRegion3D" index="137"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19219" parent="LevelGenerator/NavigationRegion3D" index="138"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19220" parent="LevelGenerator/NavigationRegion3D" index="139"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19221" parent="LevelGenerator/NavigationRegion3D" index="140"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19222" parent="LevelGenerator/NavigationRegion3D" index="141"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19223" parent="LevelGenerator/NavigationRegion3D" index="142"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19224" parent="LevelGenerator/NavigationRegion3D" index="143"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19225" parent="LevelGenerator/NavigationRegion3D" index="144"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19226" parent="LevelGenerator/NavigationRegion3D" index="145"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19227" parent="LevelGenerator/NavigationRegion3D" index="146"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19228" parent="LevelGenerator/NavigationRegion3D" index="147"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19229" parent="LevelGenerator/NavigationRegion3D" index="148"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19230" parent="LevelGenerator/NavigationRegion3D" index="149"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19231" parent="LevelGenerator/NavigationRegion3D" index="150"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19232" parent="LevelGenerator/NavigationRegion3D" index="151"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19233" parent="LevelGenerator/NavigationRegion3D" index="152"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19234" parent="LevelGenerator/NavigationRegion3D" index="153"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19235" parent="LevelGenerator/NavigationRegion3D" index="154"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19236" parent="LevelGenerator/NavigationRegion3D" index="155"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19237" parent="LevelGenerator/NavigationRegion3D" index="156"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19238" parent="LevelGenerator/NavigationRegion3D" index="157"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19239" parent="LevelGenerator/NavigationRegion3D" index="158"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19240" parent="LevelGenerator/NavigationRegion3D" index="159"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19241" parent="LevelGenerator/NavigationRegion3D" index="160"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19242" parent="LevelGenerator/NavigationRegion3D" index="161"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19243" parent="LevelGenerator/NavigationRegion3D" index="162"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19244" parent="LevelGenerator/NavigationRegion3D" index="163"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19245" parent="LevelGenerator/NavigationRegion3D" index="164"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19246" parent="LevelGenerator/NavigationRegion3D" index="165"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19247" parent="LevelGenerator/NavigationRegion3D" index="166"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19248" parent="LevelGenerator/NavigationRegion3D" index="167"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19249" parent="LevelGenerator/NavigationRegion3D" index="168"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19250" parent="LevelGenerator/NavigationRegion3D" index="169"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19251" parent="LevelGenerator/NavigationRegion3D" index="170"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19252" parent="LevelGenerator/NavigationRegion3D" index="171"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19253" parent="LevelGenerator/NavigationRegion3D" index="172"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19254" parent="LevelGenerator/NavigationRegion3D" index="173"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19255" parent="LevelGenerator/NavigationRegion3D" index="174"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19256" parent="LevelGenerator/NavigationRegion3D" index="175"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19257" parent="LevelGenerator/NavigationRegion3D" index="176"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19258" parent="LevelGenerator/NavigationRegion3D" index="177"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19259" parent="LevelGenerator/NavigationRegion3D" index="178"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19260" parent="LevelGenerator/NavigationRegion3D" index="179"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19261" parent="LevelGenerator/NavigationRegion3D" index="180"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19262" parent="LevelGenerator/NavigationRegion3D" index="181"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19263" parent="LevelGenerator/NavigationRegion3D" index="182"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19264" parent="LevelGenerator/NavigationRegion3D" index="183"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19265" parent="LevelGenerator/NavigationRegion3D" index="184"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19266" parent="LevelGenerator/NavigationRegion3D" index="185"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19267" parent="LevelGenerator/NavigationRegion3D" index="186"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19268" parent="LevelGenerator/NavigationRegion3D" index="187"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19269" parent="LevelGenerator/NavigationRegion3D" index="188"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19270" parent="LevelGenerator/NavigationRegion3D" index="189"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19271" parent="LevelGenerator/NavigationRegion3D" index="190"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19272" parent="LevelGenerator/NavigationRegion3D" index="191"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19273" parent="LevelGenerator/NavigationRegion3D" index="192"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19274" parent="LevelGenerator/NavigationRegion3D" index="193"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19275" parent="LevelGenerator/NavigationRegion3D" index="194"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, -15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19276" parent="LevelGenerator/NavigationRegion3D" index="195"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19277" parent="LevelGenerator/NavigationRegion3D" index="196"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19278" parent="LevelGenerator/NavigationRegion3D" index="197"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19279" parent="LevelGenerator/NavigationRegion3D" index="198"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19280" parent="LevelGenerator/NavigationRegion3D" index="199"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19281" parent="LevelGenerator/NavigationRegion3D" index="200"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, -1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19282" parent="LevelGenerator/NavigationRegion3D" index="201"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19283" parent="LevelGenerator/NavigationRegion3D" index="202"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 15)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19284" parent="LevelGenerator/NavigationRegion3D" index="203"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19285" parent="LevelGenerator/NavigationRegion3D" index="204"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19286" parent="LevelGenerator/NavigationRegion3D" index="205"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19287" parent="LevelGenerator/NavigationRegion3D" index="206"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19288" parent="LevelGenerator/NavigationRegion3D" index="207"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19289" parent="LevelGenerator/NavigationRegion3D" index="208"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19290" parent="LevelGenerator/NavigationRegion3D" index="209"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19291" parent="LevelGenerator/NavigationRegion3D" index="210"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19292" parent="LevelGenerator/NavigationRegion3D" index="211"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, 19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19293" parent="LevelGenerator/NavigationRegion3D" index="212"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, 1)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19294" parent="LevelGenerator/NavigationRegion3D" index="213"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19295" parent="LevelGenerator/NavigationRegion3D" index="214"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19296" parent="LevelGenerator/NavigationRegion3D" index="215"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19297" parent="LevelGenerator/NavigationRegion3D" index="216"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19298" parent="LevelGenerator/NavigationRegion3D" index="217"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 2, -5)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19299" parent="LevelGenerator/NavigationRegion3D" index="218"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 2, -17)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19300" parent="LevelGenerator/NavigationRegion3D" index="219"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19301" parent="LevelGenerator/NavigationRegion3D" index="220"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, 9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19302" parent="LevelGenerator/NavigationRegion3D" index="221"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 2, 3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19303" parent="LevelGenerator/NavigationRegion3D" index="222"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 2, 13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19304" parent="LevelGenerator/NavigationRegion3D" index="223"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19305" parent="LevelGenerator/NavigationRegion3D" index="224"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 2, -11)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19306" parent="LevelGenerator/NavigationRegion3D" index="225"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19307" parent="LevelGenerator/NavigationRegion3D" index="226"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19308" parent="LevelGenerator/NavigationRegion3D" index="227"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 2, -3)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19309" parent="LevelGenerator/NavigationRegion3D" index="228"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -9)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19310" parent="LevelGenerator/NavigationRegion3D" index="229"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 2, -7)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19311" parent="LevelGenerator/NavigationRegion3D" index="230"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 2, -19)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="@CSGBox3D@19312" parent="LevelGenerator/NavigationRegion3D" index="231"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 2, -13)
+use_collision = true
+size = Vector3(2, 3, 2)
+material = SubResource("StandardMaterial3D_klb7w")
+script = ExtResource("6_pt2i2")
+
+[node name="PathfindingManager" parent="LevelGenerator" index="1"]
+script = ExtResource("9_74yu0")
+
+[node name="Camera3D" parent="LevelGenerator" index="2"]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 40, 0)
+script = ExtResource("10_5sgxr")
+
+[node name="DirectionalLight3D" parent="LevelGenerator" index="3"]
+transform = Transform3D(1, 0, 0, 0, 0.0781633, 0.996941, 0, -0.996941, 0.0781633, 0, 40, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_direction = 2
+layout_mode = 3
+anchor_left = 0.892
+anchor_top = 0.946
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1027.58
+offset_top = -613.008
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Button" parent="Control" instance=ExtResource("11_rkb3c")]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.994
+offset_left = 1021.0
+offset_top = 613.0
+offset_right = -6.0
+offset_bottom = -0.112
+
+[editable path="LevelGenerator"]

@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://co8iufx6sum5w"]
+
+[ext_resource type="Script" path="res://ground_grid.gd" id="1_vnu75"]
+[ext_resource type="Material" uid="uid://cjcwtioigcwra" path="res://Level Generator/ground.tres" id="1_wo6vk"]
+[ext_resource type="PackedScene" uid="uid://dnifxii6ea1ki" path="res://Level Generator/mesh_instance_3d.tscn" id="2_gfkxs"]
+[ext_resource type="PackedScene" uid="uid://dgv5we86yncso" path="res://Level Generator/Cam.tscn" id="4_q7ewy"]
+[ext_resource type="PackedScene" uid="uid://ccaexdd2e73wa" path="res://Level Generator/Light.tscn" id="5_t1er6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_cjtw6"]
+material = ExtResource("1_wo6vk")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_it0gj"]
+points = PackedVector3Array(0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5)
+
+[node name="StaticBody3D" type="StaticBody3D" groups=["pathable"]]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+script = ExtResource("1_vnu75")
+
+[node name="MeshInstance3D" parent="." instance=ExtResource("2_gfkxs")]
+mesh = SubResource("BoxMesh_cjtw6")
+
+[node name="MeshInstance3D_col" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/MeshInstance3D_col"]
+shape = SubResource("ConvexPolygonShape3D_it0gj")
+
+[node name="Camera3D" parent="." instance=ExtResource("4_q7ewy")]
+transform = Transform3D(0.999962, -0.00872668, 9.9285e-08, 0.00495531, 0.567822, 0.823136, -0.0071833, -0.823105, 0.567844, -0.449, 2.64, 2.862)
+
+[node name="DirectionalLight3D" parent="." instance=ExtResource("5_t1er6")]
+transform = Transform3D(1, 0, 0, 0, 0.0781633, 0.996941, 0, -0.996941, 0.0781633, 0.0556045, 3.12756, -0.295099)

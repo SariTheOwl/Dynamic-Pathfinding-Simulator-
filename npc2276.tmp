@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://x0vwyd6po6tb"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1pdrh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mco82"]
+albedo_color = Color(0.15744, 0.822153, 0.248233, 1)
+
+[node name="NPC A*" type="CharacterBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_1pdrh")
+surface_material_override/0 = SubResource("StandardMaterial3D_mco82")

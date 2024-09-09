@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://rodsaepm8r16"]
+
+[ext_resource type="Script" path="res://Level Generator/a_star_npc.gd" id="1_okw2j"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_1pdrh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mco82"]
+albedo_color = Color(0.15744, 0.822153, 0.248233, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7mmin"]
+
+[node name="A_Star_Npc" type="CharacterBody3D" groups=["NPCs"]]
+collision_layer = 16
+script = ExtResource("1_okw2j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_1pdrh")
+surface_material_override/0 = SubResource("StandardMaterial3D_mco82")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_7mmin")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

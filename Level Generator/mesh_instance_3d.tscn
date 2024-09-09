@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnifxii6ea1ki"]
+
+[ext_resource type="Material" uid="uid://cjcwtioigcwra" path="res://Level Generator/ground.tres" id="1_r52ol"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rr8pk"]
+material = ExtResource("1_r52ol")
+
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 0.25, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_rr8pk")

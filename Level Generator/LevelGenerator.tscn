@@ -1,0 +1,2078 @@
+[gd_scene load_steps=10 format=3 uid="uid://cox2u3q5mk5e"]
+
+[ext_resource type="Script" path="res://Level Generator/level_generator.gd" id="1_gl2n3"]
+[ext_resource type="PackedScene" uid="uid://ck0wxxd7w3y66" path="res://Level Generator/ground.tscn" id="2_ltmk3"]
+[ext_resource type="PackedScene" uid="uid://ddu6pbdcbenul" path="res://Level Generator/obstacle.tscn" id="3_m1y2h"]
+[ext_resource type="Script" path="res://Level Generator/NavigationMap.gd" id="4_8px6b"]
+[ext_resource type="Material" uid="uid://cjcwtioigcwra" path="res://Level Generator/ground.tres" id="5_yqkrf"]
+[ext_resource type="Script" path="res://Level Generator/ground.gd" id="6_evkt5"]
+[ext_resource type="Script" path="res://Level Generator/obstacle.gd" id="7_f5e1j"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ifptt"]
+border_size = 0.5
+filter_ledge_spans = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rqfab"]
+albedo_color = Color(0.425684, 0.173402, 0.138823, 1)
+
+[node name="Map" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16548, -0.229082, 0.299779)
+script = ExtResource("1_gl2n3")
+GroundScene = ExtResource("2_ltmk3")
+ObstacleScene = ExtResource("3_m1y2h")
+map_width = 22
+map_depth = 22
+level_name = "New Level2"
+rng_seed = 2
+
+[node name="@NavigationRegion3D@20482" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_ifptt")
+script = ExtResource("4_8px6b")
+obstacle_map = [[true, false, false, true, true, true, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, true], [true, true, false, true, true, false, false, true, true, false, false, false, false, true, false, true, true, true, true, true, false, false], [true, true, false, true, true, false, true, true, true, false, true, true, true, true, false, false, true, true, true, true, false, true], [false, false, false, true, true, false, false, false, false, false, true, true, true, true, true, false, true, true, true, false, false, true], [true, false, true, true, true, true, true, false, true, false, false, false, false, false, true, false, false, true, true, false, true, true], [true, false, false, false, true, true, true, false, true, true, true, true, true, true, true, true, false, true, true, false, true, true], [true, false, true, false, false, false, false, false, true, true, true, true, true, true, true, true, false, true, true, false, true, false], [true, false, true, true, true, true, true, false, false, false, false, false, false, true, true, true, false, false, true, false, false, false], [true, false, false, true, true, false, false, false, true, true, true, true, false, false, false, true, true, false, true, false, true, true], [false, false, true, true, true, true, true, false, true, true, true, true, false, true, true, true, true, false, false, false, true, true], [false, true, true, true, false, false, false, false, true, true, true, false, false, false, true, true, true, true, true, true, true, true], [false, false, true, true, true, true, true, true, false, false, false, false, true, false, true, true, true, true, true, true, true, false], [true, true, true, true, true, true, true, true, false, true, true, true, true, false, false, false, true, true, true, false, true, false], [true, false, true, true, true, false, true, true, false, true, true, true, true, false, true, false, false, false, false, false, false, false], [true, false, false, true, true, false, false, false, false, true, false, true, false, false, true, false, true, true, false, true, false, true], [true, true, false, false, false, false, true, true, true, false, false, true, false, true, true, false, true, true, false, true, false, true], [true, false, false, true, true, true, true, false, false, false, true, true, true, true, true, false, true, true, true, true, false, true], [true, true, false, true, true, false, false, false, true, true, true, true, true, true, false, false, false, true, true, true, false, true], [true, true, false, false, false, false, true, true, true, true, true, true, false, false, false, true, true, true, true, false, false, true], [true, true, true, true, true, false, true, true, true, true, false, false, false, true, true, true, true, true, true, true, false, true], [true, false, true, true, false, false, true, true, false, false, false, true, false, true, true, true, false, false, false, true, false, true], [true, false, false, false, false, true, true, true, true, true, true, true, false, true, true, true, true, true, false, false, false, true]]
+map_width = 22
+map_depth = 22
+
+[node name="ground" type="CSGBox3D" parent="@NavigationRegion3D@20482" groups=["pathable"] instance=ExtResource("2_ltmk3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+use_collision = true
+size = Vector3(44, 1, 44)
+material = ExtResource("5_yqkrf")
+script = ExtResource("6_evkt5")
+ObstacleScene = ExtResource("3_m1y2h")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20483" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20484" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20485" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20486" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20487" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20488" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20489" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20490" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20491" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20492" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20493" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20494" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20495" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20496" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20497" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20498" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20499" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20500" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20501" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20502" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20503" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20504" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20505" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20506" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20507" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20508" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20509" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20510" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20511" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20512" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20513" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20514" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20515" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20516" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20517" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20518" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20519" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20520" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20521" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20522" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20523" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20524" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20525" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20526" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20527" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20528" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20529" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20530" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20531" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20532" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20533" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20534" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20535" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20536" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20537" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20538" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20539" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20540" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20541" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20542" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20543" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20544" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20545" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20546" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20547" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20548" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20549" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20550" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20551" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20552" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20553" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20554" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20555" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20556" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20557" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20558" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20559" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20560" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20561" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20562" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20563" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20564" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20565" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20566" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20567" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20568" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20569" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20570" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20571" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20572" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20573" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20574" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20575" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20576" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20577" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20578" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20579" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20580" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20581" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20582" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20583" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20584" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20585" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20586" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20587" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20588" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20589" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20590" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20591" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20592" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20593" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20594" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20595" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20596" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20597" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20598" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20599" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20600" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20601" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20602" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20603" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20604" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20605" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20606" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20607" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20608" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20609" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20610" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20611" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20612" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20613" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20614" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20615" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20616" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20617" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20618" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20619" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20620" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20621" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20622" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20623" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20624" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20625" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20626" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20627" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20628" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20629" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20630" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20631" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20632" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20633" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20634" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20635" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20636" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20637" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20638" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20639" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20640" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20641" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20642" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20643" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20644" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20645" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20646" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20647" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20648" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20649" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20650" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20651" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20652" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20653" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20654" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20655" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20656" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20657" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20658" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20659" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20660" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20661" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20662" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20663" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20664" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20665" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20666" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20667" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20668" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20669" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20670" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20671" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20672" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20673" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20674" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20675" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20676" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20677" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20678" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20679" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20680" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20681" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20682" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20683" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20684" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20685" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20686" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20687" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20688" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20689" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20690" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20691" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20692" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20693" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20694" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20695" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20696" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20697" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20698" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20699" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20700" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20701" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20702" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20703" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20704" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20705" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20706" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20707" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20708" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20709" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20710" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20711" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20712" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20713" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20714" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20715" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20716" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20717" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20718" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20719" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20720" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20721" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20722" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20723" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20724" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20725" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20726" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20727" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20728" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20729" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20730" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20731" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20732" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20733" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, -7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20734" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20735" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, 9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20736" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20737" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20738" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20739" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3, 3.5, 7)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20740" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -7, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20741" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20742" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 21, 3.5, 5)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20743" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20744" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20745" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20746" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, -19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20747" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20748" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20749" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20750" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, -1)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20751" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 3.5, 19)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20752" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20753" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 11, 3.5, 3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20754" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20755" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20756" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 5, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20757" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15, 3.5, 15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20758" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20759" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20760" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, -17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20761" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -11, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20762" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 19, 3.5, -21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20763" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -17, 3.5, -13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20764" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20765" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 3.5, -9)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20766" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 15, 3.5, 11)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20767" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, 3.5, -3)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20768" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 1, 3.5, 17)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20769" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -19, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20770" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13, 3.5, 13)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20771" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -21, 3.5, 21)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")
+
+[node name="@CSGBox3D@20772" type="CSGBox3D" parent="@NavigationRegion3D@20482" instance=ExtResource("3_m1y2h")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 3.5, -15)
+use_collision = true
+size = Vector3(2, 6, 2)
+material = SubResource("StandardMaterial3D_rqfab")
+script = ExtResource("7_f5e1j")

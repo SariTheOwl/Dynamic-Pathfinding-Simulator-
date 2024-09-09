@@ -1,0 +1,268 @@
+[gd_scene load_steps=21 format=3 uid="uid://cfm6e82xgdjj2"]
+
+[ext_resource type="Script" path="res://Level Generator/level_generator_grid.gd" id="1_2hbq6"]
+[ext_resource type="PackedScene" uid="uid://ck0wxxd7w3y66" path="res://Level Generator/ground.tscn" id="2_ohu5i"]
+[ext_resource type="PackedScene" uid="uid://ddu6pbdcbenul" path="res://Level Generator/obstacle.tscn" id="3_1d66e"]
+[ext_resource type="PackedScene" uid="uid://dvsgbl1ypltho" path="res://Level Generator/HUD.tscn" id="4_47qnl"]
+[ext_resource type="PackedScene" uid="uid://co8iufx6sum5w" path="res://ground_grid.tscn" id="4_vsmk3"]
+[ext_resource type="PackedScene" uid="uid://dgv5we86yncso" path="res://Level Generator/Cam.tscn" id="5_s0o3f"]
+[ext_resource type="PackedScene" uid="uid://ccaexdd2e73wa" path="res://Level Generator/Light.tscn" id="6_c45i2"]
+[ext_resource type="PackedScene" uid="uid://224gdlhxmjma" path="res://Level Generator/GenLevelButton.tscn" id="7_mfjaf"]
+[ext_resource type="PackedScene" uid="uid://rodsaepm8r16" path="res://Level Generator/a_star_npc.tscn" id="8_kkceg"]
+[ext_resource type="PackedScene" uid="uid://kp3bmtbymbbr" path="res://Level Generator/player.tscn" id="9_4wca3"]
+[ext_resource type="Script" path="res://Level Generator/NavigationMap.gd" id="10_p6vg3"]
+[ext_resource type="Material" uid="uid://cjcwtioigcwra" path="res://Level Generator/ground.tres" id="11_brl6o"]
+[ext_resource type="Script" path="res://Level Generator/ground.gd" id="12_wg2op"]
+[ext_resource type="Script" path="res://hud.gd" id="14_04s4x"]
+[ext_resource type="Script" path="res://Cam.gd" id="15_uhrtv"]
+[ext_resource type="Script" path="res://Level Generator/player3d.gd" id="16_5yy32"]
+[ext_resource type="Script" path="res://Level Generator/a_star_npc.gd" id="17_tyst1"]
+[ext_resource type="Script" path="res://PathfindingDebug.gd" id="18_4ct32"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_f62sp"]
+border_size = 0.5
+filter_ledge_spans = true
+
+[sub_resource type="GDScript" id="GDScript_7cc8s"]
+script/source = "@tool
+extends Node3D
+
+@export var should_draw_cubes: bool = true
+
+var grid_step :float = 2.0
+var grid_y :float = 1.5
+var points :Dictionary = {}
+var astar =  AStar3D.new()
+
+var cube_mesh = BoxMesh.new()
+var red_material = StandardMaterial3D.new()
+var green_material = StandardMaterial3D.new()
+var blue_material = StandardMaterial3D.new()
+var obstacle_map: Array = []
+
+func _ready() -> void:
+	clear_map()
+	var pathables = get_tree().get_nodes_in_group(\"pathable\")
+	red_material.albedo_color = Color.RED
+	green_material.albedo_color = Color.GREEN
+	blue_material.albedo_color = Color.BLUE
+	cube_mesh.size = Vector3(0.25, 0.25, 0.25)
+	_add_points(pathables)
+	_connect_points()
+
+func _add_points(pathables: Array):
+	for pathable in pathables:
+		var ground:CSGBox3D = pathable
+		
+		print(\"aabb: \",ground.get_aabb())
+		var start_point = Vector3(-ground.size.x/2,0,-ground.size.z/2)
+		
+		print(\"start_point: \",start_point)
+		var x_steps = ground.size.x/ grid_step
+		var z_steps = ground.size.z/ grid_step
+		
+		for x in x_steps:
+			for z in z_steps:
+				var offset_point = Vector3(grid_step/2, 1.5, grid_step/2)
+				var next_point = start_point + Vector3(x * grid_step, 0 , z * grid_step) + offset_point
+				_add_point(next_point)
+				print(next_point)
+		
+
+
+func clear_map():
+	for node in get_children():
+		print(node.name)
+		node.queue_free()
+
+
+func _add_point(point: Vector3):
+	point.y = grid_y
+	
+	var id = astar.get_available_point_id()
+	astar.add_point(id, point)
+	points[world_to_astar(point)] = id
+	_create_nav_cube(point)
+
+
+func _create_nav_cube(pos: Vector3):
+	if should_draw_cubes:
+		Draw3d.point(pos,1,Color.BLUE)
+		
+
+	# if should_draw_cubes:
+	# 	var cube = MeshInstance3D.new()
+	# 	cube.mesh = cube_mesh
+	# 	#cube.material_override = red_material
+	# 	add_child(cube)
+	# 	cube.owner = self
+	# 	pos.y = grid_y
+	# 	cube.global_transform.origin = pos
+
+func _connect_points():
+	for point in points:
+		var pos_str = point.split(\",\")
+		var world_pos:Vector3 = Vector3(float(pos_str[0]), float(pos_str[1]), float(pos_str[2]))
+		var adjacent_points = _get_adjacent_points(world_pos)
+		
+		var current_id = points[point]
+		for neighbor_id in adjacent_points:
+			if not astar.are_points_connected(current_id, neighbor_id):
+				astar.connect_points(current_id, neighbor_id)
+				if should_draw_cubes:
+					get_child(current_id).material_override = green_material
+					get_child(neighbor_id).material_override = green_material
+
+
+func _get_adjacent_points(world_point: Vector3) -> Array:
+	var adjacent_points = []
+	var search_coords = [-grid_step, 0, grid_step]
+	for x in search_coords:
+		for z in search_coords:
+			var search_offset = Vector3(x, 0, z)
+			if search_offset == Vector3.ZERO:
+				continue
+
+			var potential_neighbor = world_to_astar(world_point + search_offset)
+			if points.has(potential_neighbor):
+				adjacent_points.append(points[potential_neighbor])
+	return adjacent_points
+
+func obstacle_added(obstacle: Node3D):
+	var normalized_origin = obstacle.global_transform.origin
+	normalized_origin.y = grid_y
+	var adjacent_points: Array = []
+	var point_key = world_to_astar(normalized_origin)
+	var astar_id = points[point_key]
+	adjacent_points.append(astar_id)
+	for point in adjacent_points:
+		if not astar.is_point_disabled(point):
+			astar.set_point_disabled(point, true)
+			if should_draw_cubes:
+				get_child(point).material_override = red_material
+
+func obstacle_to_add(obstacle: Node3D):
+	obstacle_map.append(obstacle)
+
+func add_obstacles():
+	for obstacle in obstacle_map:
+		obstacle_added(obstacle)
+	obstacle_map = []
+
+func handle_obstacle_removed(obstacle: Node3D):
+	var normalized_origin = obstacle.global_transform.origin
+	normalized_origin.y = grid_y
+	var adjacent_points: Array = []
+	var point_key = world_to_astar(normalized_origin)
+	var astar_id = points[point_key]
+	adjacent_points.append(astar_id)
+	for point in adjacent_points:
+		if astar.is_point_disabled(point):
+			astar.set_point_disabled(point, false)
+			if should_draw_cubes:
+				get_child(point).material_override = green_material
+
+func find_path(from: Vector3, to: Vector3) -> Array:
+	var start_id = astar.get_closest_point(from)
+	var end_id  = astar.get_closest_point(to)
+	var path_vectors = astar.get_point_path(start_id, end_id)
+	#draw_path(path_vectors)
+	print(\"path:\", path_vectors)
+	return path_vectors
+
+func draw_path(path_vectors:PackedVector3Array):
+	for point in path_vectors:
+		_create_nav_line(point)
+
+
+func _create_nav_line(from: Vector3):
+	if should_draw_cubes:
+		var cube = MeshInstance3D.new()
+		cube.scale *=Vector3(2,2,2)
+		cube.mesh = cube_mesh
+		cube.material_override = blue_material
+		add_child(cube)
+		cube.owner = self
+		position.y = grid_y
+		cube.global_transform.origin = position
+
+func world_to_astar(world: Vector3) -> String:
+	var x = snapped(world.x, grid_step)
+	var y = snapped(world.y, grid_step)
+	var z = snapped(world.z, grid_step)
+	
+	return \"%d,%d,%d\" % [x,y,z]
+"
+
+[node name="LevelGenerator" type="Node3D"]
+script = ExtResource("1_2hbq6")
+GroundScene = ExtResource("2_ohu5i")
+ObstacleScene = ExtResource("3_1d66e")
+GroundSceneGrid = ExtResource("4_vsmk3")
+Hud = ExtResource("4_47qnl")
+Camera = ExtResource("5_s0o3f")
+Light = ExtResource("6_c45i2")
+GenLevelButton = ExtResource("7_mfjaf")
+AStarNpc = ExtResource("8_kkceg")
+Goal = ExtResource("9_4wca3")
+map_width = 10
+map_depth = 10
+generate_level = false
+save_level = false
+level_name = "New Level2"
+rng_seed = 315
+
+[node name="@NavigationRegion3D@23521" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_f62sp")
+script = ExtResource("10_p6vg3")
+obstacle_map = [[false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false], [false, false, false, false, false, false, false, false, false, false]]
+map_width = 10
+map_depth = 10
+
+[node name="ground" type="CSGBox3D" parent="@NavigationRegion3D@23521" groups=["pathable"] instance=ExtResource("2_ohu5i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.999999, 0, 0, 0)
+use_collision = true
+size = Vector3(20, 1, 20)
+material = ExtResource("11_brl6o")
+script = ExtResource("12_wg2op")
+ObstacleScene = ExtResource("3_1d66e")
+
+[node name="@Node3D@23522" type="Node3D" parent="."]
+script = SubResource("GDScript_7cc8s")
+
+[node name="@CharacterBody3D@23523" type="CharacterBody3D" parent="." instance=ExtResource("9_4wca3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 1.5, 9)
+script = ExtResource("16_5yy32")
+
+[node name="@Control@23524" type="Control" parent="." instance=ExtResource("4_47qnl")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+script = ExtResource("14_04s4x")
+
+[node name="@Button@23525" type="Button" parent="." instance=ExtResource("7_mfjaf")]
+offset_left = 1030.0
+offset_top = 612.0
+offset_right = 1155.0
+offset_bottom = 643.0
+text = "Generate Level"
+
+[node name="@Camera3D@23526" type="Camera3D" parent="." instance=ExtResource("5_s0o3f")]
+transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 0, -4.37114e-08, 1, -1, 4.37114e-08, 1.91069e-15, 0, 20, 0)
+script = ExtResource("15_uhrtv")
+
+[node name="@DirectionalLight3D@23527" type="DirectionalLight3D" parent="." instance=ExtResource("6_c45i2")]
+transform = Transform3D(1, 0, 0, 0, 0.0781633, 0.996941, 0, -0.996941, 0.0781633, 0, 20, 0)
+
+[node name="@CharacterBody3D@23528" type="CharacterBody3D" parent="." instance=ExtResource("8_kkceg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 1.5, -9)
+script = ExtResource("17_tyst1")
+
+[node name="@Control@23529" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("18_4ct32")

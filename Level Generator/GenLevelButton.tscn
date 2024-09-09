@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://224gdlhxmjma"]
+
+[ext_resource type="Script" path="res://Level Generator/gen_level_button.gd" id="1_rmxoh"]
+
+[node name="Button" type="Button"]
+offset_left = 1020.0
+offset_top = 612.0
+offset_right = 1145.0
+offset_bottom = 643.0
+text = "Generate Level"
+script = ExtResource("1_rmxoh")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

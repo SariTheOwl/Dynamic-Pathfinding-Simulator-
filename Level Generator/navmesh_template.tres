@@ -1,0 +1,7 @@
+[gd_resource type="NavigationMesh" format=3 uid="uid://bauofesax0r8w"]
+
+[resource]
+vertices = PackedVector3Array(-21.0089, -0.0119106, -23.5988, -21.0089, -0.0119106, 6.90123, 9.49107, -0.0119106, 6.90123, 9.49107, -0.0119106, -23.5988)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+border_size = 0.5
+filter_ledge_spans = true
